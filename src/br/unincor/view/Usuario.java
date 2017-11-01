@@ -29,13 +29,13 @@ public class Usuario {
 	public Integer exibeMenuPrincipal() {
 		Object[] opcoes = { "Sanduiche", "Sobremesa", "Finalizar pedido" };
 		Integer op = JOptionPane.showOptionDialog(null,
-												"Escolha o produto",
-												"Menu Principal",
-												JOptionPane.DEFAULT_OPTION,
-												JOptionPane.INFORMATION_MESSAGE,
-												null,
-												opcoes,
-												2);
+					"Escolha o produto",
+					"Menu Principal",
+					 JOptionPane.DEFAULT_OPTION,
+					 JOptionPane.INFORMATION_MESSAGE,
+				     null,
+					 opcoes,
+					 2);
 
 		return op;
 	}
@@ -43,13 +43,13 @@ public class Usuario {
 	public Integer exibeMenuPagamento() {
 		Object[] opcoes = { "Dinheiro", "Cartão" };
 		Integer op = JOptionPane.showOptionDialog(null,
-												"Forma de Pagamento",
-												"Pagamento",
-												JOptionPane.DEFAULT_OPTION,
-												JOptionPane.INFORMATION_MESSAGE,
-												null,
-												opcoes,
-												0);
+					 "Forma de Pagamento",
+					 "Pagamento",
+					  JOptionPane.DEFAULT_OPTION,
+					  JOptionPane.INFORMATION_MESSAGE,
+					  null,
+					  opcoes,
+					  0);
 
 		return op;
 	}
@@ -59,15 +59,17 @@ public class Usuario {
 	}
 
 	public Long recebeLong(String texto) {
-		return Long.parseLong(JOptionPane.showInputDialog(texto));
+		try {
+			Long resposta = Long.parseLong(JOptionPane.showInputDialog(texto));
+			return resposta;
+		} catch (Exception e) {
+			exibeMsgErro("Erro na entrada do usuário");
+		}
+		return null;
 	}
 
 	public Double recebeDouble(String texto) {
 		return Double.parseDouble(JOptionPane.showInputDialog(texto));
-	}
-
-	public Float recebeFloat(String texto) {
-		return Float.parseFloat(JOptionPane.showInputDialog(texto));
 	}
 
 	public Boolean recebeBoolean(String texto) {

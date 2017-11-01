@@ -1,8 +1,60 @@
 package br.unincor.controle;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.unincor.exception.PrecoZeradoException;
+import br.unincor.model.Produto;
+import br.unincor.model.Sanduiche;
+import br.unincor.model.Sobremesa;
+import br.unincor.view.Usuario;
+
 public class Main {
 
 	public static void main(String[] args) {
+		Usuario view = new Usuario();
+		CalculoPrecos calc = new CalculoPrecos();
+		List<Produto> listProduto = new ArrayList<Produto>();
+	
+		Integer op = 0;
+		while(op != -1 && op != 2) {
+			op = view.exibeMenuPrincipal();
+			
+			try {
+				if(op == 0) {
+					//Sanduiche
+					Sanduiche sanduiche = new Sanduiche("McLanche Feliz ", 100.0, true, true);
+					calc.calculaPrecoFinal(sanduiche);
+					listProduto.add(sanduiche);
+				} else if(op == 1) {
+					//Sobremesa
+					Sobremesa sobremesa = new Sobremesa("McFLurry", 100.0, true);
+					calc.calculaPrecoFinal(sobremesa);
+					listProduto.add(sobremesa);
+				}
+			} catch (PrecoZeradoException pze) {
+				view.exibeMsg(pze.getMessage());
+			}
+		}
+		
+		Integer opPagto = view.exibeMenuPagamento();
+		Double valorFinal = 0.0;
+		if(opPagto == 0) {
+			//Cartão
+			valorFinal = calc.pagtoDinheiro(listProduto);
+		} else {
+			//Boleto
+			valorFinal = calc.pagtoCartao(listProduto);
+		}
+		
+		view.exibeMsg("Resumo do pedido");
+		for (Produto p : listProduto) {
+			view.exibeMsg(p.verDados());
+		}
+		view.exibeMsg("Valor final: " + valorFinal);
+	}
+
+}
 		
 		/**
 		 * 1. Exibir o menu principal, onde o usuário deverá escolher
@@ -29,6 +81,4 @@ public class Main {
 		 * final de cada produto e valor final do pedido.
 		 * 
 		 */
-		
-	}
-}
+					

@@ -10,7 +10,9 @@ public class Produto {
 	public Produto(String nome, Double preco) {
 		super();
 		this.nome = nome;
-		this.preco = preco;
+		
+		if (preco >=0)
+			this.preco = preco;
 	}
 	
 	public String getNome() {
@@ -23,7 +25,8 @@ public class Produto {
 		return preco;
 	}
 	public void setPreco(Double preco) {
-		this.preco = preco;
+		if (preco >=0)
+			this.preco = preco;
 	}
 	
 	public String verDados() {
